@@ -4,3 +4,250 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+@import '../theme/fonts';
+$rich-electric-blue: #049CD8;
+
+@mixin pixelate-border($width: 0) {
+    display: block;
+    position: relative;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    border-top: $width solid black !important;
+    border-bottom: $width solid black !important;
+
+    &:before,
+    &:after {
+        content: '';
+        top: 0;
+        width: $width;
+        height: 100%;
+        position: absolute;
+        background: black;
+    }
+
+    &:before {
+        left: -$width;
+    }
+
+    &:after {
+        right: -$width;
+    }
+}
+
+* {
+    font-family: 'PixelOperator' !important;
+}
+
+ion-toolbar {
+    border-bottom: 5px solid var(--american-green);
+    --background: rgba(#43B047, 0.25) !important;
+    background: rgba(#43B047, 0.50) !important;
+}
+
+ion-card {
+    width: 100%;
+    position: relative;
+    --background: white !important;
+
+    ion-card-title,
+    ion-card-subtitle {
+        pointer-events: none;
+    }
+
+    ion-button {
+        &.delete-button {
+            position: absolute;
+            top: -2%;
+            right: 2%;
+            color: grey;
+            background: transparent !important;
+            box-shadow: none;
+
+            &:before {
+                left: -2px;
+            }
+
+            &:after {
+                right: -2px;
+            }
+        }
+    }
+}
+
+ion-input {
+    --background: rgba(255, 255, 255, 0.25) !important;
+    border-bottom: 2px solid var(--lust) !important;
+}
+
+ion-select {
+    border-bottom: 2px solid var(--lust) !important;
+    --ion-background-color: rgba(255, 255, 255, 0.25) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+ion-content,
+ion-item {
+    --background: var(--rich-electric-blue);
+}
+
+ion-button,
+button {
+
+    font-weight: bold !important;
+    font-size: 1.1rem;
+
+    &.is-yellow {
+        color: black !important;
+        --background: var(--cyber-yellow);
+        background-color: var(--cyber-yellow) !important;
+    }
+
+    &.is-red {
+        color: white !important;
+        --background: var(--lust);
+        background-color: var(--lust) !important;
+    }
+
+    &.is-green {
+        color: black !important;
+        --background: var(--american-green);
+        background-color: var(--american-green) !important;
+    }
+
+    &.is-pixelated {
+        @include pixelate-border(3px);
+
+    }
+
+}
+
+ion-list {
+    padding: 0 !important;
+}
+
+ion-progress-bar {
+    margin-top: 9% !important;
+}
+
+h1 {
+    a {
+        color: white !important;
+    }
+}
+
+.danger-div {
+    background: rgba(#E52521, 0.60) !important;
+
+    h1 {
+        font-weight: bold;
+        color: white;
+    }
+}
+
+.alert-wrapper {
+    @include pixelate-border(10px);
+    contain: none !important;
+}
+
+.text-is-bold {
+    font-weight: bold;
+}
+
+.pixel-border {
+
+    padding: 20px;
+    margin: 30px auto;
+    width: 83% !important;
+    @include pixelate-border(10px);
+
+}
+
+// Item score colors
+.priority-500 {
+    color: var(--lust) !important;
+}
+
+.priority-250 {
+    $yellow: darken(#FBD000, 30%);
+    color: $yellow !important;
+}
+
+.priority-100 {
+    color: var(--american-green) !important;
+}
+
+.xp-progress-text {
+    margin: 2% auto 0 auto !important;
+}
+
+.policy-wrapper {
+    position: relative;
+    height: max-content;
+    transition: all 0.2s ease-out;
+
+    &:hover,
+    &:active {
+        .policy {
+            height: max-content;
+            transition: all 0.2s ease-out;
+        }
+
+        ion-icon {
+            transition: all 0.2s ease-out;
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.policy {
+    height: 100px;
+    overflow: hidden !important;
+    transition: all 0.2s ease-out;
+
+    &:hover,
+    &:active {
+        transition: all 0.2s ease-out;
+        height: max-content;
+
+        ion-icon {
+            transition: all 0.2s ease-out;
+            transform: rotate(180deg);
+        }
+    }
+
+    a {
+        color: white !important;
+    }
+}
+
+.user-level-badge {
+    padding-top: 25%;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+
+    svg {
+        z-index: 1;
+        width: 100%;
+        position: absolute;
+
+        circle {
+            fill: var(--ion-color-primary);
+        }
+    }
+
+    h1 {
+        z-index: 2;
+        margin: 0 auto;
+    }
+}
+
+.settings-icon {
+    position: absolute;
+    top: 12%;
+    right: 5%;
+    font-size: 1.2rem;
+}

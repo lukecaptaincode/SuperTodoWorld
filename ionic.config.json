@@ -1,5 +1,7 @@
 {
   "name": "SuperTodoWorld",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

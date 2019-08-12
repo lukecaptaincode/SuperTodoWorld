@@ -1,14 +1,96 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-icon class="settings-icon" name="settings" [routerLink]="['/settings/']" routerDirection="forward"></ion-icon>
+    <ion-grid>
+      <ion-row>
+        <ion-col size=2>
+          <span class="user-level-badge" *ngIf="userData">
+            <h1 class="text-is-bold">{{userData.userLevel}}</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 176 176">
+              <title>BagdeBg</title>
+              <filter id="pixelate" x="0" y="0">
+                <feFlood x="4" y="4" height="2" width="2" />
+
+                <feComposite width="10" height="10" />
+
+                <feTile result="a" />
+
+                <feComposite in="SourceGraphic" in2="a" operator="in" />
+
+                <feMorphology operator="dilate" radius="5" />
+              </filter>
+              <circle filter="url(#pixelate)" cx="88" cy="88" r="88" />
+            </svg>
+          </span>
+        </ion-col>
+        <ion-col size=8>
+          <ion-grid>
+            <ion-row>
+              <ion-progress-bar [value]="progressBarData">
+              </ion-progress-bar>
+            </ion-row>
+            <ion-row>
+              <p class="xp-progress-text" *ngIf="userData">{{userData.currentLevelExperience}} of
+                {{userData.experienceToNextLevel}}</p>
+            </ion-row>
+            <ion-row *ngIf="isLoaded" class="ion-text-center">
+              <ion-col size=12>
+                <p *ngIf="userData.multiplier !== undefined">Multiplier: <span
+                    class='text-is-bold'>x{{multiplier?.toFixed(2)}}</span></p>
+              </ion-col>
+              <ion-col size=12>
+                <ion-button class="text-is-bold is-yellow is-pixelated" (click)='showRewardVideo()'>Boost Multiplier
+                  <ion-icon name="add">
+                  </ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!--ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ -->
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col size=12>
+          <ion-input [(ngModel)]="itemText" placeholder="What do ya want to do?"></ion-input>
+        </ion-col>
+        <ion-col size=10>
+          <ion-select [(ngModel)]="itemScore" placeholder="Priority">
+            <ion-select-option value="100">Low</ion-select-option>
+            <ion-select-option value="250">Medium</ion-select-option>
+            <ion-select-option value="500">High</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size=2>
+          <ion-button class="is-yellow is-pixelated" (click)="addItem(itemText,itemScore )">+</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list *ngFor="let item of todoItems?.reverse()">
+      <ion-item lines="none">
+        <ion-card class="pixel-border">
+          <ion-card-header>
+            <ion-button class="delete-button is-red is-pixelated" (click)="deleteTask(item)">x</ion-button>
+            <ion-card-title class="text-is-bold">{{item.text}}</ion-card-title>
+            <ion-card-subtitle class="priority-{{item.score}}">
+              {{ item.score === "500" ? "High" : item.score === "250" ? "Medium" : item.score === "100" ? "Low" : "None" }}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button class="is-green is-pixelated" *ngIf="!item.isDone" (click)="completeTask(item)">Done!
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>
